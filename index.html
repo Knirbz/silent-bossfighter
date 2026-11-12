@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b14">
+  <meta name="description" content="Silent Bossfighter - ein rundenbasierter Wuerfel-Kampf gegen einen Boss.">
+  <title>Silent Bossfighter | Playtest</title>
+  <style>
+    :root{color-scheme:dark;--bg:#080b14;--surface:#101522;--surface2:#151c2b;--edge:#2b3446;--txt:#e9edf6;--muted:#9ea9bc;--dim:#69788e;--hot:#f3b65c;--red:#ed7480;--cyan:#78cddd;--green:#83d6ad}
+    *{box-sizing:border-box}html{min-height:100%;scroll-behavior:smooth}body{margin:0;min-height:100vh;color:var(--txt);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(ellipse 55% 28% at 50% -8%,#29304a 0,transparent 85%),linear-gradient(180deg,#0c101d,#070a12 78%)}
+    button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}button:disabled{cursor:not-allowed}a{color:var(--cyan)}.shell{max-width:1250px;margin:0 auto;padding:0 28px 56px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:26px 0 22px;border-bottom:1px solid #283044}.identity{display:flex;align-items:center;gap:13px}.mark{display:grid;place-items:center;width:43px;height:43px;border:1px solid #be955b;background:linear-gradient(135deg,#60432a,#221c1c);border-radius:10px;color:#ffdc9d;font-weight:900;letter-spacing:-2px}.wordmark{font-weight:850;letter-spacing:.12em;font-size:15px}.submark{font-size:10px;letter-spacing:.18em;color:var(--muted);margin-top:3px}.top-actions{display:flex;align-items:center;gap:9px}.quiet-btn{background:#151c2c;border:1px solid #354055;color:#d5dcec;border-radius:8px;padding:10px 14px;font-weight:700;font-size:12px;transition:background .15s}.quiet-btn:hover{background:#26334c}.quiet-btn.primary-outline{border-color:#a37c51;color:#ffd6a1}.hero{display:flex;justify-content:space-between;align-items:end;gap:16px;padding:37px 0 27px}.eyebrow{text-transform:uppercase;letter-spacing:.22em;font-weight:800;font-size:10px;color:var(--hot)}.hero h1{font-size:clamp(27px,4.4vw,49px);letter-spacing:-.05em;line-height:1.12;margin:10px 0 10px}.hero p{color:var(--muted);margin:0;font-size:14px;max-width:660px;line-height:1.55}.round-indicator{flex-shrink:0;border:1px solid var(--edge);background:#121927;border-radius:10px;padding:14px 18px;text-align:right;min-width:165px}.label{font-size:10px;letter-spacing:.16em;font-weight:800;color:var(--dim);text-transform:uppercase}.round-num{font-size:24px;font-weight:850;letter-spacing:-.035em;margin-top:4px}.combat{display:grid;grid-template-columns:1fr 62px 1fr;gap:10px;align-items:stretch}.fighter{min-height:230px;background:linear-gradient(135deg,#131b2b,#0c111c);border:1px solid #303b4f;border-radius:14px;position:relative;overflow:hidden;padding:22px}.fighter::before{content:"";width:160px;height:160px;border-radius:50%;filter:blur(40px);opacity:.10;position:absolute;right:-12px;top:2px;background:var(--cyan);pointer-events:none}.fighter.boss::before{background:var(--red)}.fighter-head{display:flex;justify-content:space-between;gap:12px;align-items:center}.fighter-name{font-size:20px;font-weight:900;margin:5px 0 0}.fighter-role{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.11em}.avatar{height:53px;width:53px;display:grid;place-items:center;border-radius:12px;border:1px solid #496172;background:#1c313d;color:var(--cyan)}.boss .avatar{border-color:#6f3c4a;background:#351f2c;color:var(--red)}.avatar svg{width:29px;height:29px}.health-line{display:flex;justify-content:space-between;align-items:baseline;margin:27px 0 9px}.health-line strong{font-size:22px}.hp-track{height:11px;background:#253042;border:1px solid #344057;border-radius:10px;overflow:hidden}.hp-fill{width:100%;height:100%;background:linear-gradient(90deg,#4aaf80,var(--green));border-radius:10px;transition:width .32s ease}.boss .hp-fill{background:linear-gradient(90deg,#ac4357,var(--red))}.resources{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.stat{padding:7px 10px;background:#1d2739;border:1px solid #334055;border-radius:7px;font-size:12px;font-weight:750}.stat b{color:var(--cyan)}.boss .stat b{color:#f2a6b0}.versus{display:grid;place-items:center;color:#6d7691;font-size:19px;font-weight:950;letter-spacing:-.08em}.intent{border-top:1px solid #2c3547;margin-top:17px;padding-top:13px;display:flex;flex-direction:column;gap:4px}.intent strong{font-size:13px;color:#ffc6c9}.intent span{font-size:12px;color:var(--muted)}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}.section-head h2{font-size:19px;margin:0;letter-spacing:-.025em}.section-head small{font-size:11px;color:var(--muted)}.panel{background:linear-gradient(180deg,#121827,#101520);border:1px solid #2b3446;border-radius:14px;padding:22px}.workspace{display:grid;grid-template-columns:1fr .94fr;gap:18px;margin-top:18px}.dice-wrap{display:flex;gap:10px;justify-content:space-between;margin:21px 0 18px}.die{position:relative;aspect-ratio:1/1;width:calc((100% - 40px)/5);max-width:86px;min-width:0;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:2px;align-items:center;justify-items:center;padding:18px;background:#edf0ec;border:2px solid #dee5e3;border-radius:13px;box-shadow:0 6px 0 #b2bfc2,0 12px 25px #0004;transition:transform .15s,border-color .15s,box-shadow .15s}.die:hover{transform:translateY(-3px)}.die.held{border-color:var(--hot);background:#fff0d7;box-shadow:0 6px 0 #ad8d61,0 0 0 2px #c68e3f}.pip{width:9px;height:9px;border-radius:50%;background:#202938;box-shadow:inset 0 1px 2px #0005}.pip.tl{grid-column:1;grid-row:1}.pip.tr{grid-column:3;grid-row:1}.pip.ml{grid-column:1;grid-row:2}.pip.mr{grid-column:3;grid-row:2}.pip.c{grid-column:2;grid-row:2}.pip.bl{grid-column:1;grid-row:3}.pip.br{grid-column:3;grid-row:3}.die .hold{position:absolute;bottom:-15px;left:50%;transform:translateX(-50%);padding:4px 6px;white-space:nowrap;background:#273349;color:#b7c5d8;font-size:9px;font-weight:900;letter-spacing:.04em;border-radius:4px;border:1px solid #435167}.die.held .hold{background:#8d6731;border-color:#b5853e;color:#fff3dc}.roll-controls{display:flex;gap:12px;align-items:center;padding-top:16px}.action-btn{padding:12px 18px;background:linear-gradient(90deg,#bd843c,#e8b56e);color:#17130d;border:1px solid #e6bf8b;border-radius:9px;font-size:13px;font-weight:900;white-space:nowrap;box-shadow:0 3px 14px #cf913326}.action-btn:hover:not(:disabled){filter:brightness(1.12)}.action-btn:disabled{opacity:.45;filter:grayscale(.7);box-shadow:none}.roll-hint{font-size:12px;line-height:1.5;color:var(--muted)}.roll-hint b{color:var(--txt)}.combo-line{margin-top:22px;padding:12px 14px;background:#1b2535;border:1px solid #34435a;border-radius:9px;min-height:50px;display:flex;justify-content:space-between;gap:10px;align-items:center}.combo-line strong{font-size:12px;color:#f3ca88}.combo-line span{color:var(--muted);font-size:11px;text-align:right}.slots-top{display:flex;align-items:center;justify-content:space-between;gap:9px}.slot-pips{display:flex;gap:5px}.slot-pips span{width:8px;height:8px;border-radius:50%;border:1px solid #66758a;background:#2b3446}.slot-pips span.on{background:var(--hot);border-color:var(--hot)}.actions{display:grid;grid-template-columns:1fr;gap:10px}.action-card{border:1px solid #3b465c;border-radius:10px;background:#192233;color:var(--txt);text-align:left;padding:12px 14px;display:block;transition:background .15s,border-color .15s,transform .15s}.action-card:hover:not(:disabled){border-color:#d0a266;background:#283247;transform:translateY(-1px)}.action-card:disabled{opacity:.43}.action-card.used{background:#101724;border-color:#2d3649}.action-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:5px}.action-head strong{font-size:13px}.action-tag{font-size:9px;text-transform:uppercase;letter-spacing:.09em;font-weight:900;color:#e5b77e}.action-tag.optional{color:#92a8c7}.action-card.used .action-tag{color:#8997a8}.action-sub{color:#a8b4c6;font-size:11px;line-height:1.45}.action-effect{margin-top:7px;color:#b9d8da;font-size:12px;font-weight:800}.bottom{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}.log-list{padding:0;margin:0;list-style:none;display:flex;flex-direction:column;gap:11px}.log-entry{padding-left:12px;border-left:2px solid #49576d;font-size:12px;line-height:1.5;color:#bdc8d7}.log-entry.good{border-color:var(--green)}.log-entry.bad{border-color:var(--red)}.log-entry.note{border-color:var(--hot)}.log-entry strong{color:#e9edf6}.rules-mini p{font-size:12px;color:var(--muted);line-height:1.7;margin:0 0 8px}.rules-mini b{color:var(--txt)}.notice{padding:12px;background:#1c2635;border-left:2px solid #cf9c62;font-size:11px;color:#bac6d6;line-height:1.5;margin-top:16px}.footer{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 0 0;color:#738198;font-size:11px}.footer span:last-child{color:#a4aec1}dialog{max-width:min(90vw,530px);border:1px solid #52617c;border-radius:14px;background:#151e2d;color:var(--txt);padding:27px;box-shadow:0 25px 120px #000a}dialog::backdrop{background:#03050ccc;backdrop-filter:blur(5px)}dialog h2{margin:0 0 14px;font-size:24px}dialog p,dialog li{font-size:13px;color:#c0cbdb;line-height:1.65}dialog ol{padding-left:22px}dialog .dialog-actions{display:flex;justify-content:end;gap:10px;margin-top:22px}#result-title.win{color:var(--green)}#result-title.loss{color:var(--red)}.kbd{display:inline-block;border:1px solid #667187;background:#202c3c;color:var(--txt);padding:0px 5px;border-radius:4px;font-size:11px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media(max-width:920px){.workspace{grid-template-columns:1fr}.bottom{grid-template-columns:1fr 1fr}.dice-wrap{justify-content:center;gap:13px}.die{width:80px}.fighter{padding:16px;min-height:245px}.fighter-name{font-size:17px}.hero{padding:29px 0 23px}}
+    @media(max-width:630px){.shell{padding:0 14px 35px}.topbar{padding:15px 0}.mark{width:37px;height:37px}.wordmark{font-size:11px}.submark{font-size:9px}.top-actions{gap:5px}.quiet-btn{padding:9px 10px;font-size:10px}.hero{display:block;padding:27px 0 18px}.hero h1{font-size:31px}.hero p{font-size:12px}.round-indicator{display:flex;justify-content:space-between;align-items:center;text-align:left;min-width:0;margin-top:17px;padding:8px 12px}.round-num{font-size:18px;margin:0}.combat{grid-template-columns:1fr 1fr;gap:9px}.versus{display:none}.fighter{padding:13px;min-height:255px}.fighter-head{align-items:start}.fighter-name{font-size:15px}.fighter-role{font-size:9px}.avatar{width:34px;height:34px;border-radius:8px;flex-shrink:0}.avatar svg{width:20px;height:20px}.health-line{margin-top:24px}.health-line strong{font-size:16px}.label{font-size:9px}.stat{font-size:10px;padding:6px}.resources{gap:5px}.intent{margin-top:11px;padding-top:10px}.intent strong,.intent span{font-size:10px}.workspace,.bottom{margin-top:12px;gap:12px}.panel{padding:15px}.bottom{grid-template-columns:1fr}.dice-wrap{gap:8px;justify-content:space-between;margin:20px 0 18px}.die{padding:11px;width:calc((100% - 32px)/5);border-radius:9px;box-shadow:0 4px 0 #b2bfc2,0 9px 16px #0004}.die.held{box-shadow:0 4px 0 #ad8d61,0 0 0 1px #c68e3f}.pip{width:6px;height:6px}.die .hold{font-size:8px}.roll-controls{gap:8px}.action-btn{padding:11px 13px}.round-indicator{max-width:100%}.footer{align-items:start;flex-direction:column}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="identity"><div class="mark" aria-hidden="true">S/B</div><div><div class="wordmark">SILENT BOSSFIGHTER</div><div class="submark">TACTICAL DICE COMBAT</div></div></div>
+      <nav class="top-actions" aria-label="Spieloptionen"><button class="quiet-btn" id="rules-button">Regeln</button><button class="quiet-btn primary-outline" id="restart-button">Neuer Kampf</button></nav>
+    </header>
+    <section class="hero" aria-labelledby="main-title"><div><div class="eyebrow">PLAYTEST / VERSION 0.1</div><h1 id="main-title">F&uuml;nf W&uuml;rfel.<br>Eine Entscheidung.</h1><p>Bezwinge den Schattenboss. Sichere deine besten W&uuml;rfel, w&auml;hle deine Aktion und &uuml;berstehe seine Angriffe. Jede Aktion ist pro Zyklus nur einmal verf&uuml;gbar.</p></div><div class="round-indicator"><div class="label">Kampfrunde</div><div class="round-num"><span id="turn-number">1</span><span style="font-size:12px;color:#8d9db4"> / Zyklus <span id="cycle-number">1</span></span></div></div></section>
+    <section class="combat" aria-label="Kampfstatus">
+      <article class="fighter player"><div class="fighter-head"><div><div class="fighter-role">Spieler</div><h2 class="fighter-name">Der W&uuml;rfelk&auml;mpfer</h2></div><div class="avatar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 5 5v6c0 5 3 8 7 11 4-3 7-6 7-11V5l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg></div></div><div class="health-line"><span class="label">Lebenspunkte</span><strong><span id="player-hp">40</span><span style="font-size:12px;color:#78869b"> / 40</span></strong></div><div class="hp-track"><div id="player-bar" class="hp-fill"></div></div><div class="resources"><div class="stat">Schild <b id="player-shield">0</b></div><div class="stat">Energie <b id="player-energy">0</b> / 6</div></div></article>
+      <div class="versus" aria-hidden="true">VS</div>
+      <article class="fighter boss"><div class="fighter-head"><div><div class="fighter-role">Gegner / KI</div><h2 class="fighter-name">Der Schattenboss</h2></div><div class="avatar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5c4 2 6 2 9-1 3 3 5 3 9 1l-2 11-7 5-7-5L3 5Z"/><path d="M8 12h2m4 0h2m-6 4h4"/></svg></div></div><div class="health-line"><span class="label">Lebenspunkte</span><strong><span id="boss-hp">48</span><span style="font-size:12px;color:#78869b"> / 48</span></strong></div><div class="hp-track"><div id="boss-bar" class="hp-fill"></div></div><div class="resources"><div class="stat">Schild <b id="boss-shield">0</b></div></div><div class="intent"><div class="label">N&auml;chste Bossaktion</div><strong id="boss-intent">...</strong><span id="boss-intent-hint">...</span></div></article>
+    </section>
+    <div class="workspace">
+      <section class="panel" aria-label="Wuerfelfeld"><div class="section-head"><h2>Deine W&uuml;rfel</h2><small>Antippen zum Sichern</small></div><div id="dice" class="dice-wrap" role="group" aria-label="Fuenf Wuerfel"></div><div class="roll-controls"><button class="action-btn" id="reroll-button">Neu w&uuml;rfeln</button><div class="roll-hint"><b id="rerolls-left">2</b> Wiederholungen &uuml;brig<br>Gesicherte W&uuml;rfel bleiben liegen.</div></div><div class="combo-line"><strong id="combo-name">Kein Pasch</strong><span id="combo-value">Kein Kombobonus</span></div></section>
+      <section class="panel" aria-label="Aktionen"><div class="section-head"><h2>Aktion w&auml;hlen</h2><small id="slots-status">0 von 5 verbraucht</small></div><div class="actions" id="actions"></div></section>
+    </div>
+    <div class="bottom"><section class="panel" aria-label="Kampfverlauf"><div class="section-head"><h2>Kampfprotokoll</h2><small>Letzte Ereignisse</small></div><ol class="log-list" id="log" aria-live="polite" aria-relevant="additions text"></ol></section><section class="panel rules-mini" aria-label="Kurzanleitung"><div class="section-head"><h2>So funktioniert es</h2><small>Vorl&auml;ufige Regeln</small></div><p><b>1.</b> F&uuml;nf W&uuml;rfel liegen vor dir. Du darfst bis zu zwei Mal ungesicherte W&uuml;rfel neu werfen.</p><p><b>2.</b> W&auml;hle eine von f&uuml;nf Aktionen. Klingenhieb und Schildwall sind Pflichtfelder. Jede Aktion ist pro Zyklus nur einmal nutzbar.</p><p><b>3.</b> Ein Pasch oder Doppelpasch st&auml;rkt offensive Aktionen. Danach greift der Boss an oder bereitet seinen n&auml;chsten Zug vor.</p><div class="notice">Dieser spielbare Prototyp verwendet vorl&auml;ufige Werte und Regeln. Er kann sp&auml;ter an das urspr&uuml;ngliche Spielkonzept angepasst werden.</div></section></div>
+    <footer class="footer"><span>SILENT BOSSFIGHTER / PLAYTEST BUILD 0.1</span><span>Einzelspieler &middot; Browsergame &middot; Kein Login erforderlich</span></footer>
+  </div>
+  <dialog id="rules-dialog" aria-labelledby="rules-title"><h2 id="rules-title">Spielregeln</h2><p>Besiege den Schattenboss, bevor deine Lebenspunkte auf null fallen.</p><ol><li>Zu Beginn jedes Zuges wirfst du f&uuml;nf W&uuml;rfel. Bis zu zwei Wiederholungen sind m&ouml;glich. Tippe einen W&uuml;rfel an, um ihn zu sichern.</li><li>W&auml;hle danach eine Aktion. Jedes der f&uuml;nf Felder kann pro Zyklus genau einmal verwendet werden. Zwei davon sind Pflichtfelder. Nach f&uuml;nf Aktionen stehen alle Felder wieder bereit.</li><li>Drei gleiche Zahlen geben einen <b>Paschbonus von +3</b>, vier gleiche +6, f&uuml;nf gleiche +10. Zwei Paare ergeben einen <b>Doppelpaschbonus von +2</b>. Die Boni erh&ouml;hen den Schaden deiner Angriffsaktionen.</li><li>Der Boss zeigt seine n&auml;chste Aktion vorab an. Schildpunkte absorbieren Schaden. Du kannst maximal sechs Energie sammeln.</li><li>Der <b>Sturmsto&szlig;</b> verbraucht bis zu drei Energie und verst&auml;rkt damit seinen Schaden.</li></ol><p>Hinweis: Dies sind eigenst&auml;ndig umgesetzte vorl&auml;ufige Playtest-Regeln, nicht die bereits abgestimmte Endfassung.</p><div class="dialog-actions"><button class="quiet-btn" id="close-rules">Verstanden</button></div></dialog>
+  <dialog id="result-dialog" aria-labelledby="result-title"><div class="eyebrow">Kampf beendet</div><h2 id="result-title">Ergebnis</h2><p id="result-message"></p><div class="dialog-actions"><button class="action-btn" id="play-again">Noch einmal spielen</button></div></dialog>
+  <div id="announcer" class="sr-only" role="status" aria-live="polite"></div>
+  <script>
+  (() => {
+    'use strict';
+    const $ = (id) => document.getElementById(id);
+    const dicePositions = {1:['c'],2:['tl','br'],3:['tl','c','br'],4:['tl','tr','bl','br'],5:['tl','tr','c','bl','br'],6:['tl','tr','ml','mr','bl','br']};
+    const actions = [
+      {id:'strike',title:'Klingenhieb',tag:'Pflichtfeld',desc:'Basis 4 + 2 Schaden je Wuerfel mit 4, 5 oder 6.'},
+      {id:'guard',title:'Schildwall',tag:'Pflichtfeld',desc:'4 + 2 Schildpunkte je gerader Wuerfel.'},
+      {id:'heal',title:'Regeneration',tag:'Wahlfeld',desc:'Heilt 4 + 2 Lebenspunkte je Wuerfel mit 1 oder 2.'},
+      {id:'focus',title:'Fokus sammeln',tag:'Wahlfeld',desc:'Gewinnt 2 Energie + 1 je gewuerfelter 6.'},
+      {id:'burst',title:'Sturmstoss',tag:'Wahlfeld',desc:'4 + 3 Schaden je 6; verbraucht bis zu 3 Energie.'}
+    ];
+    const rnd = (n) => Math.floor(Math.random() * n);
+    const roll = () => 1 + rnd(6);
+    let s;
+    function addLog(message, tone='neutral') { s.log.unshift({message,tone}); s.log=s.log.slice(0,7); }
+    function combo() {
+      const counts = Array(7).fill(0); s.dice.forEach(d=>counts[d]++);
+      const max = Math.max(...counts), pairs=counts.filter(n=>n>=2).length;
+      if(max===5) return {name:'Fuenferpasch',bonus:10};
+      if(max===4) return {name:'Viererpasch',bonus:6};
+      if(max===3) return {name:'Dreierpasch',bonus:3};
+      if(pairs>=2) return {name:'Doppelpasch',bonus:2};
+      if(max===2) return {name:'Einfacher Pasch',bonus:0};
+      return {name:'Kein Pasch',bonus:0};
+    }
+    function attackPreview(id) {
+      const high=s.dice.filter(n=>n>=4).length, even=s.dice.filter(n=>n%2===0).length;
+      const low=s.dice.filter(n=>n<=2).length, six=s.dice.filter(n=>n===6).length, b=combo().bonus;
+      if(id==='strike') return {num:4+high*2+b,text:`${4+high*2+b} Schaden`};
+      if(id==='guard') return {num:4+even*2,text:`+${4+even*2} Schild`};
+      if(id==='heal') return {num:4+low*2,text:`+${4+low*2} Heilung`};
+      if(id==='focus') return {num:2+six,text:`+${Math.min(6-s.player.energy,2+six)} Energie`};
+      if(id==='burst') {const n=4+six*3+b+Math.min(s.player.energy,3)*3;return {num:n,text:`${n} Schaden (${Math.min(s.player.energy,3)} Energie)`};}
+      return {num:0,text:''};
+    }
+    function bossMove() {
+      if(s.boss.charging) return {id:'blast',label:'Dunkelschlag',hint:'12-14 Schaden / aufgeladen'};
+      const r=rnd(100);
+      if(r<55) return {id:'hit',label:'Schattenhieb',hint:'6-9 Schaden'};
+      if(r<78) return {id:'armor',label:'Panzerung',hint:'+6 Schildpunkte'};
+      return {id:'charge',label:'Finsterer Fokus',hint:'Laedt einen starken Angriff auf'};
+    }
+    function harm(target, amount) {
+      const block=Math.min(target.shield,amount);
+      target.shield-=block;
+      const dealt=Math.max(0,amount-block);
+      target.hp=Math.max(0,target.hp-dealt);
+      return {dealt,block};
+    }
+    function startGame() {
+      s={turn:1,cycle:1,player:{hp:40,max:40,shield:0,energy:0},boss:{hp:48,max:48,shield:0,charging:false},dice:Array.from({length:5},roll),held:Array(5).fill(false),rerolls:2,used:new Set(),log:[],intent:null,ended:false};
+      s.intent=bossMove();addLog('Die Arena oeffnet sich. Der Schattenboss wartet.','note');
+      $('result-dialog').close();render();announce('Neuer Kampf gestartet. Waehle Wuerfel und eine Aktion.');
+    }
+    function announce(text){$('announcer').textContent=text;}
+    function renderDice(){
+      $('dice').replaceChildren();
+      s.dice.forEach((value,index)=>{
+        const btn=document.createElement('button');btn.type='button';btn.className='die'+(s.held[index]?' held':'');btn.disabled=s.ended;btn.setAttribute('aria-pressed',String(s.held[index]));btn.setAttribute('aria-label',`Wuerfel ${index+1}, Zahl ${value}, ${s.held[index]?'gesichert':'nicht gesichert'}`);
+        dicePositions[value].forEach(pos=>{const pip=document.createElement('span');pip.className='pip '+pos;pip.setAttribute('aria-hidden','true');btn.append(pip);});
+        const pill=document.createElement('span');pill.className='hold';pill.textContent=s.held[index]?'FIXIERT':'SICHERN';btn.append(pill);
+        btn.addEventListener('click',()=>{if(s.ended)return;s.held[index]=!s.held[index];render();announce(`Wuerfel ${index+1} ${s.held[index]?'gesichert':'freigegeben'}.`);});
+        $('dice').append(btn);
+      });
+    }
+    function renderActions(){
+      $('actions').replaceChildren();
+      actions.forEach(a=>{
+        const used=s.used.has(a.id),p=attackPreview(a.id);
+        const btn=document.createElement('button');btn.type='button';btn.className='action-card'+(used?' used':'');btn.disabled=used||s.ended;
+        btn.innerHTML=`<div class="action-head"><strong>${a.title}</strong><span class="action-tag${a.tag==='Wahlfeld'?' optional':''}">${used?'Verbraucht':a.tag}</span></div><div class="action-sub">${a.desc}</div><div class="action-effect">${used?'Bereits eingesetzt':p.text}</div>`;
+        btn.addEventListener('click',()=>takeAction(a.id));$('actions').append(btn);
+      });
+    }
+    function render(){
+      $('turn-number').textContent=s.turn;$('cycle-number').textContent=s.cycle;
+      $('player-hp').textContent=s.player.hp;$('boss-hp').textContent=s.boss.hp;
+      $('player-bar').style.width=(100*s.player.hp/s.player.max)+'%';$('boss-bar').style.width=(100*s.boss.hp/s.boss.max)+'%';
+      $('player-shield').textContent=s.player.shield;$('boss-shield').textContent=s.boss.shield;$('player-energy').textContent=s.player.energy;
+      $('boss-intent').textContent=s.ended?'Kampf beendet':s.intent.label;$('boss-intent-hint').textContent=s.ended?'':s.intent.hint;
+      $('rerolls-left').textContent=s.rerolls;$('reroll-button').disabled=s.ended||s.rerolls===0||s.held.every(Boolean);
+      $('reroll-button').textContent=s.rerolls?'Neu wuerfeln':'Keine Wuerfe mehr';
+      const c=combo();$('combo-name').textContent=c.name;$('combo-value').textContent=c.bonus?`+${c.bonus} Angriffsschaden`:'Kein Angriffsbonus';
+      $('slots-status').textContent=`${s.used.size} von 5 verbraucht`;
+      renderDice();renderActions();$('log').replaceChildren();
+      s.log.forEach(entry=>{const li=document.createElement('li');li.className='log-entry '+entry.tone;li.textContent=entry.message;$('log').append(li);});
+    }
+    function reroll(){
+      if(s.ended||s.rerolls<=0||s.held.every(Boolean))return;
+      s.dice=s.dice.map((n,i)=>s.held[i]?n:roll());s.rerolls--;
+      render();announce(`Wuerfel erneut geworfen. Noch ${s.rerolls} Wiederholungen.`);
+    }
+    function takeAction(id){
+      if(s.ended||s.used.has(id))return;
+      const a=actions.find(x=>x.id===id);const preview=attackPreview(id);
+      s.used.add(id);
+      if(id==='strike'||id==='burst'){
+        if(id==='burst')s.player.energy=Math.max(0,s.player.energy-3);
+        const hit=harm(s.boss,preview.num);
+        addLog(`${a.title}: ${hit.dealt} Schaden${hit.block?` (${hit.block} vom Schild abgefangen)`:''}.`,'good');
+      } else if(id==='guard'){
+        s.player.shield+=preview.num;addLog(`${a.title}: +${preview.num} Schildpunkte.`,'good');
+      } else if(id==='heal'){
+        const healed=Math.min(preview.num,s.player.max-s.player.hp);s.player.hp+=healed;
+        addLog(`${a.title}: +${healed} Lebenspunkte.`,'good');
+      } else if(id==='focus'){
+        const gain=Math.min(6-s.player.energy,preview.num);s.player.energy+=gain;
+        addLog(`${a.title}: +${gain} Energie.`,'good');
+      }
+      if(s.boss.hp<=0){finish(true);render();return;}
+      enemyTurn();
+      if(s.player.hp<=0){finish(false);render();return;}
+      if(s.used.size===5){s.cycle++;s.used=new Set();addLog(`Zyklus ${s.cycle} beginnt. Alle Aktionsfelder sind wieder frei.`,'note');}
+      s.turn++;s.dice=Array.from({length:5},roll);s.held=Array(5).fill(false);s.rerolls=2;s.intent=bossMove();render();
+      announce(`${a.title} ausgefuehrt. Runde ${s.turn}. Boss bereitet ${s.intent.label} vor.`);
+    }
+    function enemyTurn(){
+      const move=s.intent;
+      if(move.id==='hit'||move.id==='blast'){
+        const amount=move.id==='hit'?6+rnd(4):12+rnd(3);
+        const hit=harm(s.player,amount);
+        addLog(`${move.label}: ${hit.dealt} Schaden${hit.block?` (${hit.block} blockiert)`:''}.`,'bad');
+        if(move.id==='blast')s.boss.charging=false;
+      } else if(move.id==='armor'){
+        s.boss.shield+=6;addLog('Der Schattenboss erhaelt +6 Schild.','bad');
+      } else if(move.id==='charge'){
+        s.boss.charging=true;addLog('Der Schattenboss sammelt Energie fuer den Dunkelschlag.','bad');
+      }
+    }
+    function finish(win){
+      s.ended=true;
+      $('result-title').textContent=win?'Sieg ueber den Schattenboss':'Der Boss hat gewonnen';
+      $('result-title').className=win?'win':'loss';
+      $('result-message').textContent=win?`Du hast den Schattenboss in ${s.turn} Kampfrunden besiegt. Noch eine Runde?`:`Deine Lebenspunkte sind auf null gefallen. Versuche eine andere Kombination aus Schutz, Heilung und Angriff.`;
+      addLog(win?'Der Schattenboss ist besiegt!':'Der Wuerfelkaempfer wurde besiegt.','note');
+      $('result-dialog').showModal();announce(win?'Kampf gewonnen':'Kampf verloren');
+    }
+    $('reroll-button').addEventListener('click',reroll);
+    $('restart-button').addEventListener('click',()=>{if(!s.ended&&!window.confirm('Aktuellen Kampf wirklich neu starten?'))return;startGame();});
+    $('rules-button').addEventListener('click',()=>$('rules-dialog').showModal());
+    $('close-rules').addEventListener('click',()=>$('rules-dialog').close());
+    $('play-again').addEventListener('click',startGame);
+    document.addEventListener('keydown',event=>{
+      if(event.repeat||event.altKey||event.ctrlKey||event.metaKey||['INPUT','TEXTAREA'].includes(document.activeElement.tagName)||document.querySelector('dialog[open]'))return;
+      if(event.code==='Space'){event.preventDefault();reroll();}
+      if(/^[1-5]$/.test(event.key)){const index=Number(event.key)-1;takeAction(actions[index].id);}
+    });
+    startGame();
+  })();
+  </script>
+</body>
+</html>
